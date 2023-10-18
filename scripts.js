@@ -1,4 +1,5 @@
 const dino = document.getElementById("dino");
+let count = document.getElementById("score").val();
 
 function jump() {
   // Only add the jump class if it isn't already added
@@ -22,7 +23,8 @@ let isAlive = setInterval(function () {
   if (cactusLeft < 50 && cactusLeft > 0 && dinoTop >= 140) {
     alert("Game Over!")
   }
-}, 10)
+  count.innerHTML.ToInt += 1;
+ }, 10)
 
 // Run the jump method when spacebar is pressed
 document.addEventListener("keydown", function (event) {
