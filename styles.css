@@ -4,6 +4,7 @@
 	height: 200px;
 	border: 1px solid black;
 	margin: auto;
+	border-radius: 10px;
 }
 
 /* Style trex image */
@@ -69,4 +70,20 @@
 	100% {
 		left: -10px;
 	}
+}
+
+#score{
+	display: flex;
+	margin: 6px;
+	justify-content: center;
+}
+
+#score-box {
+	border: 1px solid black;
+	width: 70px;
+	height: 30px;
+	top: -75px;
+	left: 500px;
+	border-radius: 10px;
+	position: relative;
 }
