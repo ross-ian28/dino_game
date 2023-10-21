@@ -1,89 +1,15 @@
-/* Style border for game */
-.game {
-	width: 600px;
-	height: 200px;
-	border: 1px solid black;
-	margin: auto;
-	border-radius: 10px;
+* {
+	padding: 0px;
+	margin: 0px;
 }
 
-/* Style trex image */
-#dino {
-	width: 50px;
-	height: 50px;
-	background-image: url(img/trex.png);
-	background-size: 50px 50px;
-	position: relative;
-	top: 150px;
-	left: 20px;
+body {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
 }
 
-/* Trex jump animation */
-.jump {
-	animation: jump 0.3s linear;
-}
-
-/* Trex key frames */
-@keyframes jump {
-	0% {
-		top: 150px;
-	}
-
-	30% {
-		top: 130px;
-	}
-
-	50% {
-		top: 80px;
-	}
-
-	80% {
-		top: 130px;
-	}
-
-	100% {
-		top: 150px;
-	}
-}
-
-/* Style cactus image */
-#cactus{
-	width: 20px;
-	height: 40px;
-	position: relative;
-	top: 110px;
-	left: 600px;
-
-	background-image: url("img/cactus.png");
-	background-size: 20px 40px;
-
-	/* Cactus animation */
-	animation: block 1s infinite linear;
-}
-
-/* Cactus key frames */
-@keyframes block {
-	0% {
-		left: 500px;
-	}
-
-	100% {
-		left: -10px;
-	}
-}
-
-#score{
-	display: flex;
-	margin: 6px;
-	justify-content: center;
-}
-
-#score-box {
-	border: 1px solid black;
-	width: 70px;
-	height: 30px;
-	top: -75px;
-	left: 500px;
-	border-radius: 10px;
-	position: relative;
+canvas {
+  border: 2px solid grey;
 }
