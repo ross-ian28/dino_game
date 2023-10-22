@@ -1,5 +1,7 @@
 import Player from "./Player.js"
 import Ground from "./Ground.js"
+import CactiController from "./CactiController.js";
+import Score from "./Score.js";
 
 const canvas = document.getElementById("game");
 const ctx = canvas.getContext("2d");
@@ -17,13 +19,24 @@ const GROUND_WIDTH = 2400;
 const GROUND_HEIGHT = 24;
 const GROUND_AND_CACTUS_SPEED = 0.5;
 
+const CACTI_CONFIG = [
+  {width: 48 / 1.5, height: 100 / 1.5, image: 'images/cactus_1.png'}, 
+  {width: 98 / 1.5, height: 100 / 1.5, image: 'images/cactus_2.png'}, 
+  {width: 68 / 1.5, height: 70 / 1.5, image: 'images/cactus_3.png'}, 
+];
+
 //Game Objects
 let player = null;
 let ground = null;
+let cactiController = null;
+let score = null;
 
 let scaleRatio = null;
 let previousTime = null;
 let gameSpeed = GAME_SPEED_START;
+let gameOver = false;
+let hasAddedEventListenerForRestart = false;
+let waitingToStart = true;
 
 function createSprites() {
   // Adjust objects to window size
@@ -43,7 +56,32 @@ function createSprites() {
     scaleRatio
   );
 
-  ground = new Ground(ctx, groundWidthInGame, groundHeightInGame, GROUND_AND_CACTUS_SPEED, scaleRatio)
+  ground = new Ground(
+    ctx, 
+    groundWidthInGame, 
+    groundHeightInGame, 
+    GROUND_AND_CACTUS_SPEED, 
+    scaleRatio
+  );
+
+  const cactiImages = CACTI_CONFIG.map(cactus => {
+    const image = new Image();
+    image.src = cactus.image;
+    return {
+      image: image,
+      width: cactus.width * scaleRatio, 
+      height: cactus.height * scaleRatio 
+    }
+  });
+
+  cactiController = new CactiController(
+    ctx, 
+    cactiImages, 
+    scaleRatio, 
+    GROUND_AND_CACTUS_SPEED
+  );
+
+  score = new Score(ctx, scaleRatio);
 }
 
 function setScreen() {
@@ -75,6 +113,54 @@ function getScaleRatio() {
   }
 }
 
+function showGameOver() {
+  // clearScreen();
+  // ctx.fillStyle = "black";
+  // ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+  // const GameOverfontSize = 70 * scaleRatio;
+  // ctx.font = `${GameOverfontSize}px Impact`;
+  // ctx.fillStyle = "red";
+  // ctx.fillText("WASTED", canvas.width / 3, canvas.height / 2);
+
+  const TryAgainfontSize = 40 * scaleRatio;
+  ctx.font = `${TryAgainfontSize}px Impact`;
+  ctx.fillStyle = "grey";
+  ctx.fillText("Press Space To Try Again", canvas.width / 4, canvas.height / 2);
+}
+
+function setGameReset() {
+  if(!hasAddedEventListenerForRestart) {
+    hasAddedEventListenerForRestart = true;
+
+    setTimeout(() => {
+      window.addEventListener("keyup", reset, {once: true});
+      window.addEventListener("touchstart", reset, {once: true});
+    }, 1000);
+  }
+}
+
+function reset() {
+  hasAddedEventListenerForRestart = false;
+  gameOver = false; 
+  waitingToStart = false;
+  ground.reset();
+  cactiController.reset();
+  score.reset();
+  gameSpeed = GAME_SPEED_START;
+}
+
+function showStartGameText() {
+  const fontSize = 40 * scaleRatio;
+  ctx.font = `${fontSize}px Verdana`;
+  ctx.fillStyle = "grey";
+  ctx.fillText("Press Space To Start", canvas.width / 4, canvas.height / 2);
+}
+
+function updateGameSpeed(frameTimeDelta) {
+  gameSpeed += frameTimeDelta * GAME_SPEED_INCREMENT;
+}
+
 function clearScreen() {
   ctx.fillStyle = "white";
   ctx.fillRect(0, 0, canvas.width, canvas.height);
@@ -90,14 +176,37 @@ function gameLoop(currentTime) {
 
   clearScreen();
 
-  // Update game objects
-  ground.update(gameSpeed, frameTimeDelta);
-  player.update(gameSpeed, frameTimeDelta);
+  if (!gameOver && !waitingToStart) {
+    // Update game objects
+    ground.update(gameSpeed, frameTimeDelta);
+    cactiController.update(gameSpeed, frameTimeDelta);
+    player.update(gameSpeed, frameTimeDelta);
+    score.update(frameTimeDelta);
+    updateGameSpeed(frameTimeDelta);
+  }
 
+  if (!gameOver && cactiController.collideWith(player)) {
+    gameOver = true;
+    setGameReset();
+    score.setHighScore();
+  }
   // Draw game objects
   ground.draw();
+  cactiController.draw();
   player.draw();
+  score.draw();
+
+  if (gameOver) {
+    showGameOver();
+  }
+
+  if (waitingToStart) {
+    showStartGameText();
+  }
   requestAnimationFrame(gameLoop);
 }
 
 requestAnimationFrame(gameLoop);
+
+window.addEventListener("keyup", reset, {once: true});
+window.addEventListener("touchstart", reset, {once: true});
