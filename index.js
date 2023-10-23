@@ -114,19 +114,19 @@ function getScaleRatio() {
 }
 
 function showGameOver() {
-  // clearScreen();
-  // ctx.fillStyle = "black";
-  // ctx.fillRect(0, 0, canvas.width, canvas.height);
+  clearScreen();
+  ctx.fillStyle = "black";
+  ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-  // const GameOverfontSize = 70 * scaleRatio;
-  // ctx.font = `${GameOverfontSize}px Impact`;
-  // ctx.fillStyle = "red";
-  // ctx.fillText("WASTED", canvas.width / 3, canvas.height / 2);
+  const GameOverfontSize = 70 * scaleRatio;
+  ctx.font = `${GameOverfontSize}px Retro New Version`;
+  ctx.fillStyle = "red";
+  ctx.fillText("WASTED", canvas.width / 3.15, canvas.height / 2);
 
-  const TryAgainfontSize = 40 * scaleRatio;
-  ctx.font = `${TryAgainfontSize}px Impact`;
-  ctx.fillStyle = "grey";
-  ctx.fillText("Press Space To Try Again", canvas.width / 4, canvas.height / 2);
+  // const TryAgainfontSize = 40 * scaleRatio;
+  // ctx.font = `${TryAgainfontSize}px Impact`;
+  // ctx.fillStyle = "grey";
+  // ctx.fillText("Press Space To Try Again", canvas.width / 4, canvas.height / 2);
 }
 
 function setGameReset() {
