@@ -112,6 +112,7 @@ export default class Player{
     }
     this.walkAnimationTimer -= frameTimeDelta * gameSpeed;
   }
+  
   draw() {
     this.ctx.drawImage(this.image, this.x, this.y, this.width, this.height);
   }

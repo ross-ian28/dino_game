@@ -126,6 +126,7 @@ function showGameOver() {
   clearScreen();
 
   resetImage.draw();
+
   const TryAgainfontSize = 40 * scaleRatio;
   ctx.font = `${TryAgainfontSize}px Impact`;
   ctx.fillStyle = "grey";
@@ -150,6 +151,7 @@ function reset() {
   ground.reset();
   cactiController.reset();
   score.reset();
+  resetImage.reset();
   gameSpeed = GAME_SPEED_START;
 }
 
