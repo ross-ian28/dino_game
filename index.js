@@ -2,6 +2,7 @@ import Player from "./Player.js"
 import Ground from "./Ground.js"
 import CactiController from "./CactiController.js";
 import Score from "./Score.js";
+import Reset from "./Reset.js";
 
 const canvas = document.getElementById("game");
 const ctx = canvas.getContext("2d");
@@ -30,6 +31,7 @@ let player = null;
 let ground = null;
 let cactiController = null;
 let score = null;
+let resetImage = null;
 
 let scaleRatio = null;
 let previousTime = null;
@@ -82,6 +84,13 @@ function createSprites() {
   );
 
   score = new Score(ctx, scaleRatio);
+
+  resetImage = new Reset(
+    ctx,
+    canvas.width, 
+    canvas.height,
+    scaleRatio
+  );
 }
 
 function setScreen() {
@@ -115,18 +124,12 @@ function getScaleRatio() {
 
 function showGameOver() {
   clearScreen();
-  ctx.fillStyle = "black";
-  ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-  const GameOverfontSize = 70 * scaleRatio;
-  ctx.font = `${GameOverfontSize}px Retro New Version`;
-  ctx.fillStyle = "red";
-  ctx.fillText("WASTED", canvas.width / 3.15, canvas.height / 2);
-
-  // const TryAgainfontSize = 40 * scaleRatio;
-  // ctx.font = `${TryAgainfontSize}px Impact`;
-  // ctx.fillStyle = "grey";
-  // ctx.fillText("Press Space To Try Again", canvas.width / 4, canvas.height / 2);
+  resetImage.draw();
+  const TryAgainfontSize = 40 * scaleRatio;
+  ctx.font = `${TryAgainfontSize}px Impact`;
+  ctx.fillStyle = "grey";
+  ctx.fillText("Press Space To Try Again", canvas.width / 4, canvas.height / 3);
 }
 
 function setGameReset() {
