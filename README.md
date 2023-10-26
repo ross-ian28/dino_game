@@ -7,9 +7,9 @@ Hello all! I'm excited to share my take on the classic dino game you can play wh
 ![running](images/screenshots/runningSS.png)
 ![reset](images/screenshots/resetSS.png)
 
-Tutorial Followed: https://www.youtube.com/watch?v=ooru4pyEv1I
+## Tutorial Followed: https://www.youtube.com/watch?v=ooru4pyEv1I
 
-Contact Info:
+## Contact Info:
 <a href="https://www.linkedin.com/in/ross-ian28/">
     <img src="https://img.shields.io/badge/LinkedIn-blue?style=for-the-badge&logo=linkedin&logoColor=white" alt="LinkedIn Badge"/>
 </a>
