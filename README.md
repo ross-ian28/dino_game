@@ -7,7 +7,8 @@ Hello all! I'm excited to share my take on the classic dino game you can play wh
 ![running](images/screenshots/runningSS.png)
 ![reset](images/screenshots/resetSS.png)
 
-## Tutorial Followed: https://www.youtube.com/watch?v=ooru4pyEv1I
+## Tutorial Followed: 
+https://www.youtube.com/watch?v=ooru4pyEv1I
 
 ## Contact Info:
 <a href="https://www.linkedin.com/in/ross-ian28/">
