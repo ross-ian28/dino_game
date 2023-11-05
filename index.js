@@ -1,6 +1,7 @@
 import Player from "./Player.js"
 import Ground from "./Ground.js"
 import CactiController from "./CactiController.js";
+import BirdController from "./BirdController.js";
 import Score from "./Score.js";
 import Reset from "./Reset.js";
 
@@ -12,8 +13,8 @@ const GAME_SPEED_INCREMENT = 0.00001;
 
 const GAME_WIDTH = 800;
 const GAME_HEIGHT = 200;
-const PLAYER_WIDTH = 88 / 1.5; //58
-const PLAYER_HEIGHT = 94 / 1.5; //62
+const PLAYER_WIDTH = 88 / 1.5; // 58
+const PLAYER_HEIGHT = 94 / 1.5; // 62
 const MAX_JUMP_HEIGHT = GAME_HEIGHT;
 const MIN_JUMP_HEIGHT = 150;
 const GROUND_WIDTH = 2400;
@@ -26,10 +27,17 @@ const CACTI_CONFIG = [
   {width: 68 / 1.5, height: 70 / 1.5, image: 'images/cactus_3.png'}, 
 ];
 
+const BIRD_CONFIG = [
+  {width: 48 / 1.5, height: 100 / 1.5, image: 'images/cactus_1.png'}, 
+  {width: 98 / 1.5, height: 100 / 1.5, image: 'images/cactus_2.png'}, 
+  {width: 68 / 1.5, height: 70 / 1.5, image: 'images/cactus_3.png'}, 
+];
+
 //Game Objects
 let player = null;
 let ground = null;
 let cactiController = null;
+let birdController = null;
 let score = null;
 let resetImage = null;
 
@@ -91,6 +99,23 @@ function createSprites() {
     canvas.height,
     scaleRatio
   );
+
+  const birdImages = BIRD_CONFIG.map(bird => {
+    const image = new Image();
+    image.src = bird.image;
+    return {
+      image: image,
+      width: bird.width * scaleRatio, 
+      height: bird.height * scaleRatio 
+    }
+  });
+
+  birdController = new BirdController(
+    ctx, 
+    birdImages, 
+    scaleRatio, 
+    GROUND_AND_CACTUS_SPEED
+  );
 }
 
 function setScreen() {
@@ -150,6 +175,7 @@ function reset() {
   waitingToStart = false;
   ground.reset();
   cactiController.reset();
+  birdController.reset();
   score.reset();
   resetImage.reset();
   gameSpeed = GAME_SPEED_START;
@@ -170,6 +196,7 @@ function clearScreen() {
   ctx.fillStyle = "white";
   ctx.fillRect(0, 0, canvas.width, canvas.height);
 }
+
 function gameLoop(currentTime) {
   if (previousTime === null) {
     previousTime = currentTime;
@@ -185,6 +212,7 @@ function gameLoop(currentTime) {
     // Update game objects
     ground.update(gameSpeed, frameTimeDelta);
     cactiController.update(gameSpeed, frameTimeDelta);
+    birdController.update(gameSpeed, frameTimeDelta);
     player.update(gameSpeed, frameTimeDelta);
     score.update(frameTimeDelta);
     updateGameSpeed(frameTimeDelta);
@@ -198,6 +226,7 @@ function gameLoop(currentTime) {
   // Draw game objects
   ground.draw();
   cactiController.draw();
+  birdController.draw();
   player.draw();
   score.draw();
 
