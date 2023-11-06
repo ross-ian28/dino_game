@@ -72,4 +72,17 @@ export default class BirdController {
   reset() {
     this.bird = [];
   }
+
+  fly(gameSpeed, frameTimeDelta) {
+    if(this.walkAnimationTimer <= 0) {
+      if(this.image === this.dinoRunImages[0]) {
+        this.image = this.dinoRunImages[1];
+      }
+      else {
+        this.image = this.dinoRunImages[0];
+      }
+      this.walkAnimationTimer = this.WALK_ANIMATION_TIMER;
+    }
+    this.walkAnimationTimer -= frameTimeDelta * gameSpeed;
+  }
 }

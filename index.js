@@ -24,13 +24,11 @@ const GROUND_AND_CACTUS_SPEED = 0.5;
 const CACTI_CONFIG = [
   {width: 48 / 1.5, height: 100 / 1.5, image: 'images/cactus_1.png'}, 
   {width: 98 / 1.5, height: 100 / 1.5, image: 'images/cactus_2.png'}, 
-  {width: 68 / 1.5, height: 70 / 1.5, image: 'images/cactus_3.png'}, 
+  {width: 68 / 1.5, height: 70 / 1.5, image: 'images/cactus_3.png'} 
 ];
 
 const BIRD_CONFIG = [
-  {width: 48 / 1.5, height: 100 / 1.5, image: 'images/cactus_1.png'}, 
-  {width: 98 / 1.5, height: 100 / 1.5, image: 'images/cactus_2.png'}, 
-  {width: 68 / 1.5, height: 70 / 1.5, image: 'images/cactus_3.png'}, 
+  {width: 48 / 1.5, height: 100 / 1.5, image: 'images/bird_fly1.png'}
 ];
 
 //Game Objects
@@ -177,7 +175,7 @@ function reset() {
   cactiController.reset();
   birdController.reset();
   score.reset();
-  resetImage.reset();
+  // resetImage.reset();
   gameSpeed = GAME_SPEED_START;
 }
 
